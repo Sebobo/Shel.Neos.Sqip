@@ -93,3 +93,19 @@ Both binaries have the same cli output and therefore work fine.
                 # Specify the type of primitive shapes that will be used to generate the image
                 # 0=combo, 1=triangle, 2=rect, 3=ellipse, 4=circle, 5=rotatedrect, 6=beziers, 7=rotatedellipse, 8=polygon
                 mode: 0
+
+#### Caching
+
+The generated SVGs will be cached in the filesystem as strings. 
+
+To speed the Cache up you can switch to use Redis like this in your `Caches.yaml`:
+
+    ShelNeosSqip_ImageCache:
+      backend: Neos\Cache\Backend\RedisBackend
+      backendOptions:
+        database: 0
+
+You can make the cache persistent to keep cached images when temporary caches are flushed:
+
+    ShelNeosSqip_ImageCache:
+      persistent: true
