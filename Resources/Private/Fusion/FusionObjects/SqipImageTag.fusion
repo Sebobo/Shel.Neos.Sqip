@@ -8,11 +8,11 @@ prototype(Shel.Neos.Sqip:ImageTag) < prototype(Neos.Neos:ImageTag) {
         height = ${height || asset.height}
 
         src >
-        src = Shel.Neos.Sqip:SqipImage {
+        src = Shel.Neos.Sqip:SqipCaseRenderer {
             asset = ${asset}
         }
 
-        data-image-normal = Neos.Neos:ImageUri {
+        data-normal = Neos.Neos:ImageUri {
             asset = ${asset}
             width = ${width}
             maximumWidth = ${maximumWidth}
@@ -24,7 +24,7 @@ prototype(Shel.Neos.Sqip:ImageTag) < prototype(Neos.Neos:ImageTag) {
             preset = ${preset}
         }
 
-        data-image-retina = Neos.Neos:ImageUri {
+        data-retina = Neos.Neos:ImageUri {
             asset = ${asset}
             width = ${width * 2}
             maximumWidth = ${maximumWidth * 2}
@@ -37,6 +37,6 @@ prototype(Shel.Neos.Sqip:ImageTag) < prototype(Neos.Neos:ImageTag) {
         }
 
         # Override and adapt this to your needs in your package
-        data-image-srcset = null
+        data-srcset = null
     }
 }

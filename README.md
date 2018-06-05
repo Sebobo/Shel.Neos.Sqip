@@ -8,7 +8,7 @@ Description
 -----------
 
 This package provides a fusion object for Neos CMS to render svg image placeholders based on the **SQIP** technique.
-They can be used to show a rough version of an image while the real image is still lazy loading.
+They can be used to show a blurry or abstract version of an image while the real image is still lazy loading.
 
 Learn more about **SQIP** is a method to generate SVG based placeholders for images here:
 * Original node.js version [sqip](https://github.com/technopagan/sqip) used by this package. 
@@ -42,9 +42,27 @@ How to use
 
 Use the provided fusion object `Shel.Neos.Sqip:ImageTag` to render an image with placeholder and use
 the lazy image loader [layzr](https://github.com/callmecavs/layzr.js) to lazy load the actual images.
+This object already provides the necessary attributes to make `layzr` work out of the box.
 
 You can also use the provided `Shel.Neos.Sqip:SqipImage` fusion object to just render the SVG data which you can
 put into the `src` attribute of an `img` tag or in a inline style as background image.
+
+The fusion object `Shel.Neos.Sqip:SqipCaseRenderer` provides a renderer for your `src` attribute which checks 
+if the user is in the backend and then decides to render the original image uri instead of the SQIP image. 
+
+You can use this for example to modify the [Carbon.Image:Tag](https://github.com/CarbonPackages/Carbon.Image) object like this:
+
+    prototype(Carbon.Image:Tag) {
+        attributes {
+            src >
+            src = Shel.Neos.Sqip:SqipCaseRenderer {
+                asset = ${asset}
+            }
+            srcset >
+            data-normal = Carbon.Image:ImageUri
+            data-srcset = Carbon.Image:Srcset
+        }
+    }
 
 #### Compatible image formats
 
