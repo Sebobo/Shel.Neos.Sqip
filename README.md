@@ -10,6 +10,8 @@ Description
 This package provides a fusion object for Neos CMS to render svg image placeholders based on the **SQIP** technique.
 They can be used to show a blurry or abstract version of an image while the real image is still lazy loading.
 
+You can see it in action [here](https://vimeo.com/273546493).
+
 Learn more about **SQIP** is a method to generate SVG based placeholders for images here:
 * Original node.js version [sqip](https://github.com/technopagan/sqip) used by this package. 
 * The [go variant](https://github.com/denisbrodbeck/sqip) which is also supported via configuration.
