@@ -1,0 +1,4 @@
+ShelNeosSqip_ImageCache:
+  backend: Neos\Cache\Backend\FileBackend
+  backendOptions:
+    defaultLifetime: 0

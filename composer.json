@@ -1,0 +1,14 @@
+{
+    "name": "shel/neos-sqip",
+    "type": "neos-plugin",
+    "description": "Neos CMS SQIP image renderer",
+    "license": "MIT",
+    "require": {
+        "neos/neos": "~4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shel\\Neos\\Sqip\\": "Classes"
+        }
+    }
+}

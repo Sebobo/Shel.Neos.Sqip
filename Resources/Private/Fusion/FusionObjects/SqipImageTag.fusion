@@ -1,0 +1,42 @@
+##
+# Fusionobject to render images with a SQIP based rendered placeholder image.
+# For the actual images to be rendered a lazy load image library needs to be used to read the data attributes.
+#
+prototype(Shel.Neos.Sqip:ImageTag) < prototype(Neos.Neos:ImageTag) {
+    attributes {
+        width = ${width || asset.width}
+        height = ${height || asset.height}
+
+        src >
+        src = Shel.Neos.Sqip:SqipImage {
+            asset = ${asset}
+        }
+
+        data-image-normal = Neos.Neos:ImageUri {
+            asset = ${asset}
+            width = ${width}
+            maximumWidth = ${maximumWidth}
+            height = ${height}
+            maximumHeight = ${maximumHeight}
+            allowCropping = ${allowCropping}
+            allowUpScaling = ${allowUpScaling}
+            async = ${async}
+            preset = ${preset}
+        }
+
+        data-image-retina = Neos.Neos:ImageUri {
+            asset = ${asset}
+            width = ${width * 2}
+            maximumWidth = ${maximumWidth * 2}
+            height = ${height * 2}
+            maximumHeight = ${maximumHeight * 2}
+            allowCropping = ${allowCropping}
+            allowUpScaling = ${allowUpScaling}
+            async = ${async}
+            preset = ${preset}
+        }
+
+        # Override and adapt this to your needs in your package
+        data-image-srcset = null
+    }
+}

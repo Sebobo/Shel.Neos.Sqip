@@ -1,0 +1,4 @@
+prototype(Shel.Neos.Sqip:SqipImage) {
+    @class = 'Shel\\Neos\\Sqip\\FusionObjects\\SqipImageImplementation'
+    asset = null
+}

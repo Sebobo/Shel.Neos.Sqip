@@ -1,0 +1,9 @@
+Shel\Neos\Sqip\FusionObjects\SqipImageImplementation:
+  properties:
+    imageCache:
+      object:
+        factoryObjectName: Neos\Flow\Cache\CacheManager
+        factoryMethodName: getCache
+        arguments:
+          1:
+            value: ShelNeosSqip_ImageCache

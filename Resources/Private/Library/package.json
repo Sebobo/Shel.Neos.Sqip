@@ -1,0 +1,14 @@
+{
+  "name": "shel.neos.sqip",
+  "version": "1.0.0",
+  "description": "Helper package for Neos CMS to render SQIP optimized preload images",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sebastian Helzle",
+  "license": "MIT",
+  "dependencies": {
+    "sqip": "^0.3.3"
+  }
+}

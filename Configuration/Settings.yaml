@@ -1,0 +1,27 @@
+Neos:
+  Neos:
+    userInterface:
+      translation:
+        autoInclude:
+          Shel.Neos.Sqip:
+            - 'NodeTypes/*'
+    fusion:
+      autoInclude:
+        Shel.Neos.Sqip: true
+
+Shel:
+  Neos:
+    Sqip:
+      useGlobalBinary: false # use globally installed binaries
+      globalBinaryPath: ''
+      library: 'sqip'
+      binaryPath: '.bin/sqip'
+      arguments: "${'node ' + binaryPath + ' -n ' + numberOfPrimitives + ' -m ' + mode + ' -b ' + blur + ' ' + file}"
+      parameters:
+        # Customize the number of primitive SVG shapes (default=8) to influence bytesize or level of detail
+        numberOfPrimitives: 8
+        # Specify the type of primitive shapes that will be used to generate the image
+        # 0=combo, 1=triangle, 2=rect, 3=ellipse, 4=circle, 5=rotatedrect, 6=beziers, 7=rotatedellipse, 8=polygon
+        mode: 0
+        # Set the gaussian blur
+        blur: 12
