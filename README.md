@@ -102,6 +102,7 @@ Configuration
             mode: 0
             # Set the gaussian blur
             blur: 12
+          thumbnailPreset: 'Neos.Media.Browser:Thumbnail'
     
 #### Using the go variant
 

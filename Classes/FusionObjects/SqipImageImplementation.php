@@ -14,6 +14,9 @@ use Neos\Flow\Package\PackageManagerInterface;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
 use Neos\Media\Domain\Model\AssetInterface;
 use Neos\Eel\Utility as EelUtility;
+use Neos\Media\Domain\Model\ImageInterface;
+use Neos\Media\Domain\Service\ThumbnailService;
+use Neos\Media\Exception\ThumbnailServiceException;
 
 /**
  * Implementation class for rendering sqip images in fusion
@@ -41,10 +44,15 @@ class SqipImageImplementation extends AbstractFusionObject
 
     /**
      * @Flow\Inject
-     *
      * @var VariableFrontend
      */
     protected $imageCache;
+
+    /**
+     * @Flow\Inject
+     * @var ThumbnailService
+     */
+    protected $thumbnailService;
 
     /**
      * @return AssetInterface
@@ -60,13 +68,17 @@ class SqipImageImplementation extends AbstractFusionObject
      */
     public function evaluate()
     {
-        $resource = $this->getAsset()->getResource();
-        $cacheIdentifier = $resource->getSha1();
+        $asset = $this->getAsset();
+        $cacheIdentifier = $asset->getResource()->getSha1();
 
-        $cachedImage = $this->imageCache->get($cacheIdentifier);
-        if ($cachedImage) {
-            return $cachedImage;
+        /** @var string $cachedPlaceholder */
+        $cachedPlaceholder = $this->imageCache->get($cacheIdentifier);
+        if ($cachedPlaceholder) {
+            return $cachedPlaceholder;
         }
+
+        $asset = $this->getThumbnail($asset);
+        $resource = $asset->getResource();
 
         $streamMetaData = stream_get_meta_data($resource->getStream());
         $pathAndFilename = $streamMetaData['uri'];
@@ -97,5 +109,23 @@ class SqipImageImplementation extends AbstractFusionObject
         }
 
         return '';
+    }
+
+    /**
+     * @param $asset
+     * @return ImageInterface
+     */
+    protected function getThumbnail($asset)
+    {
+        try {
+            $thumbnailConfiguration = $this->thumbnailService->getThumbnailConfigurationForPreset($this->settings['thumbnailPreset']);
+            $asset = $this->thumbnailService->getThumbnail($asset, $thumbnailConfiguration);
+            return $asset;
+        } catch (ThumbnailServiceException $e) {
+            // Didn't find preset, just use the original image to create the placeholder
+        } catch (\Exception $e) {
+            // Couldn't create thumbnail, just use the original image to create the placeholder
+        }
+        return $asset;
     }
 }
