@@ -70,6 +70,16 @@ You can use this for example to modify the [Carbon.Image:Tag](https://github.com
 
 This package was tested with pngs, jpegs and svgs.
 Possibly other formats work well too.
+
+#### Performance
+
+Processing the SQIP placeholders is quite slow and takes several seconds per image.
+
+To speed this up a thumbnail will be generated first (which can also be prerendered with CLI commands)
+to reduce the image dimensions. By default the preset from the Media Browser will be used which has
+dimensions of 250x250. So this is also a bit faster as the media module reuses the same thumbnails.
+
+You can change the preset via configuration.
     
 Configuration
 -------------
