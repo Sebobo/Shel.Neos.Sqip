@@ -4,12 +4,13 @@
 #
 prototype(Shel.Neos.Sqip:ImageTag) < prototype(Neos.Neos:ImageTag) {
     attributes {
-        width = ${width || asset.width}
-        height = ${height || asset.height}
+        width = ${width || (asset ? asset.width : '')}
+        height = ${height || (asset ? asset.height : '')}
 
         src >
         src = Shel.Neos.Sqip:SqipCaseRenderer {
             asset = ${asset}
+            @if.hasAsset = ${asset}
         }
 
         data-normal = Neos.Neos:ImageUri {
@@ -22,6 +23,7 @@ prototype(Shel.Neos.Sqip:ImageTag) < prototype(Neos.Neos:ImageTag) {
             allowUpScaling = ${allowUpScaling}
             async = ${async}
             preset = ${preset}
+            @if.hasAsset = ${asset}
         }
 
         data-retina = Neos.Neos:ImageUri {
@@ -34,6 +36,7 @@ prototype(Shel.Neos.Sqip:ImageTag) < prototype(Neos.Neos:ImageTag) {
             allowUpScaling = ${allowUpScaling}
             async = ${async}
             preset = ${preset}
+            @if.hasAsset = ${asset}
         }
 
         # Override and adapt this to your needs in your package
