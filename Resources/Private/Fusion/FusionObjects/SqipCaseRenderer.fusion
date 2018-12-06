@@ -1,22 +1,21 @@
 ##
 # Fusionobject to render the SQIP image or default image based on the backend mode
 #
-prototype(Shel.Neos.Sqip:SqipCaseRenderer) < prototype(Neos.Fusion:Value) {
+prototype(Shel.Neos.Sqip:SqipCaseRenderer) < prototype(Neos.Fusion:Component) {
     asset = null
-    @context.asset = ${this.asset}
 
-    value = Neos.Fusion:Case {
+    renderer = Neos.Fusion:Case {
         inBackend {
             condition = ${documentNode.context.inBackend}
             renderer = Neos.Neos:ImageUri {
-                asset = ${asset}
+                asset = ${props.asset}
             }
         }
 
         default {
             condition = true
             renderer = Shel.Neos.Sqip:SqipImage {
-                asset = ${asset}
+                asset = ${props.asset}
             }
         }
     }
