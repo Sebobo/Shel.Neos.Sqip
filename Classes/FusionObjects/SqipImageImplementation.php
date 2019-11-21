@@ -6,11 +6,13 @@ namespace Shel\Neos\Sqip\FusionObjects;
  * This script belongs to the package "Shel.Neos.Sqip".
  */
 
+use Neos\Cache\Exception as CacheException;
 use Neos\Cache\Frontend\VariableFrontend;
 use Neos\Eel\CompilingEvaluator;
 use Neos\Eel\Exception;
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Package\PackageManagerInterface;
+use Neos\Flow\Package\Exception\UnknownPackageException;
+use Neos\Flow\Package\PackageManager;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
 use Neos\Media\Domain\Model\AssetInterface;
 use Neos\Eel\Utility as EelUtility;
@@ -38,7 +40,7 @@ class SqipImageImplementation extends AbstractFusionObject
 
     /**
      * @Flow\Inject
-     * @var PackageManagerInterface
+     * @var PackageManager
      */
     protected $packageManager;
 
@@ -57,7 +59,7 @@ class SqipImageImplementation extends AbstractFusionObject
     /**
      * @return AssetInterface
      */
-    public function getAsset()
+    public function getAsset(): AssetInterface
     {
         return $this->fusionValue('asset');
     }
@@ -65,8 +67,10 @@ class SqipImageImplementation extends AbstractFusionObject
     /**
      * Evaluate this Fusion object and return the result
      * @return string
+     * @throws CacheException
+     * @throws UnknownPackageException
      */
-    public function evaluate()
+    public function evaluate(): string
     {
         $asset = $this->getAsset();
         $cacheIdentifier = $asset->getResource()->getSha1();
@@ -115,7 +119,7 @@ class SqipImageImplementation extends AbstractFusionObject
      * @param $asset
      * @return ImageInterface
      */
-    protected function getThumbnail($asset)
+    protected function getThumbnail($asset): ImageInterface
     {
         try {
             $thumbnailConfiguration = $this->thumbnailService->getThumbnailConfigurationForPreset($this->settings['thumbnailPreset']);
