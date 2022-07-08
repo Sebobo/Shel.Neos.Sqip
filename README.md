@@ -1,4 +1,4 @@
-# A base package for Neos CMS projects
+# Shel.Neos.Sqip
 
 [![Latest Stable Version](https://poser.pugx.org/shel/neos-sqip/v/stable)](https://packagist.org/packages/shel/neos-sqip)
 [![Total Downloads](https://poser.pugx.org/shel/neos-sqip/downloads)](https://packagist.org/packages/shel/neos-sqip)
